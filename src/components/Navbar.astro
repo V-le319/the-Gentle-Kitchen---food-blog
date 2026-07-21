@@ -1,0 +1,50 @@
+---
+
+---
+<div class="releative flex flex-row justify-between items-center py-4 px-3 md:p-4 text-heading">
+    <a href="/"
+        class="logo flex items-center gap-2">
+        <img src="/img/logo.png"
+            width={30}
+            height={30}/>
+        <div class="flex flex-col font-serif">
+            <span class="text-xs font-semibold">The</span>
+            <span class="text-sm font-semibold">GENTLE KITCHEN</span>
+        </div>
+    </a>
+
+    <!--desktop -->
+    <div class="hidden md:flex font-sans justify-evenly text-sm font-medium gap-20">
+        <a href="/" class="hover:font-semibold duration-200 tracking-widest">HOME</a>
+        <a href="/recipes" class="hover:font-semibold duration-200 tracking-widest">RECIPES</a>
+        <a href="/journals" class="hover:font-semibold duration-200 tracking-widest">JOURNALS</a>
+        <a href="/login" class="hover:font-semibold duration-200 tracking-widest">LOGIN</a>
+    </div>
+
+    <!--mobile-->
+    <button id="menu-toggle" class="md:hidden text-2xl z-20">
+       <span id="menu-icon">☰</span>
+    </button>
+    <div id="mobile-menu"
+        class="hidden md:hidden flex-col text-center gap-2 text-sm font-medium
+               absolute w-full left-0 top-1/12 bg-bg shadow-md z-10">
+        <a href="/" class="hover:bg-warmhover py-2  hover:text-bg w-full duration-200">HOME</a>
+        <a href="/recipes" class="hover:bg-warmhover py-2  hover:text-bg w-full duration-200">RECIPES</a>
+        <a href="/journals" class="hover:bg-warmhover py-2  hover:text-bg w-full duration-200">JOURNALS</a>
+        <a href="/login" class="hover:bg-warmhover py-2  hover:text-bg w-full duration-200">LOGIN</a>
+    </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('menu-icon');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.contains('flex');
+    menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex');
+    if (icon) icon.textContent = isOpen ? '☰' : '✕';
+  });
+</script>
+ 

@@ -1,17 +1,22 @@
 ---
-
+import Layout from "../layouts/Layout.astro"
+import Navbar from "../components/Navbar.astro"
+import Hero from "../components/Hero.astro"
+import About from "../components/About.astro"
+import NewestRecipes from "../components/NewestRecipes.astro"
+import Notes from "../components/Notes.astro"
+import Form from "../components/Form.astro"
+import Footer from "../components/Footer.astro"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="The Gentle Kitchen">
+  <Navbar />
+  <main class="flex flex-col">
+    <Hero />
+    <About />
+    <NewestRecipes />
+    <Notes />
+    <Form />
+    <Footer />
+  </main>
+</Layout>

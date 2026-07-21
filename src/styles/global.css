@@ -1,1 +1,15 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap');
+
+@theme {
+  /* fonts */
+  --font-serif: "Inrina Serif", serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* colors */
+  --color-bg: #e5d8bd;
+  --color-heading: #282119;
+  --color-lightcharcoal: #444748;
+  --color-warmhover: #a54d27;
+  --color-button: #65371f;
+}
