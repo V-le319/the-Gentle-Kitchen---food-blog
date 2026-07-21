@@ -1,6 +1,13 @@
-<div class="h-screen flex flex-cols justify-center w-full border border-lightcharcoal">
+---
+import { getCollection } from 'astro:content';
+const recipes = await getCollection('recipes');
+const sidedish = await getCollection('sidedish');
+---
 
-    <div class="side-bar font-serif text-lightcharcoal border-r border-t-0 w-1/9 md:w-1/12 h-full  border-lightcharcoal flex items-center justify-center">
+
+<div class="min-h-screen flex flex-cols justify-center w-full border border-lightcharcoal">
+
+    <div class="side-bar sticky top-0 h-screen font-serif text-lightcharcoal border-r border-t-0 w-1/9 md:w-1/12  border-lightcharcoal flex items-center justify-center">
         <span class="-rotate-90 text-sm md:text-lg tracking-[0.8rem] font-medium whitespace-nowrap">
             NEWEST RECIPES
         </span>
@@ -10,7 +17,15 @@
             <input class=" w-2/3 p-2 px-4 text-base self-center rounded-full border border-lightcharcoal"
                     placeholder="Search ingredients..."/>
 
-            <div class="grid grid-cols-1 md:grid-cols-2"></div>        
+            <div class="h-full p-10 grid grid-cols-1 md:grid-cols-2">
+                {recipes.map(recipe => (
+  <div class="recipe-card">
+    <img src={recipe.data.image} alt={recipe.data.title} />
+    <h3>{recipe.data.title}</h3>
+    <p>{recipe.data.calories} cal · {recipe.data.time} mins</p>
+  </div>
+))}
+            </div>        
     </div>
 
 

@@ -1,7 +1,9 @@
 ---
 
 ---
-<div class="releative flex flex-row justify-between items-center py-4 px-3 md:p-4 text-heading">
+<div id="navbar"
+    class="sticky top-0 z-20 shadow-lg flex flex-row backdrop-blur-sm duration-300 justify-between items-center py-4 px-3 md:p-4 text-heading"
+    data-scrolled="false">
     <a href="/"
         class="logo flex items-center gap-2">
         <img src="/img/logo.png"
@@ -45,6 +47,20 @@
     menu?.classList.toggle('hidden');
     menu?.classList.toggle('flex');
     if (icon) icon.textContent = isOpen ? '☰' : '✕';
+  });
+
+  const navbar = document.getElementById('navbar');
+  let scrollTimeout: ReturnType<typeof setTimeout>;
+
+  window.addEventListener('scroll', () => {
+    navbar?.classList.add('bg-bg/40', 'backdrop-blur-sm');
+    navbar?.classList.remove('bg-bg');
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      navbar?.classList.remove('bg-bg/40', 'backdrop-blur-sm');
+      navbar?.classList.add('bg-bg');
+    }, 800); // adjust: ms of no-scroll before it's considered "stopped"
   });
 </script>
  
