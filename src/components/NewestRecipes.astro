@@ -1,7 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-const recipes = await getCollection('recipes');
+
 const sidedish = await getCollection('sidedish');
+const LIMIT = 4; 
+const recipes = (await getCollection('recipes')).slice(0, LIMIT);
+
+
 ---
 
 
@@ -13,30 +17,31 @@ const sidedish = await getCollection('sidedish');
         </span>
     </div>
 
-    <div class="flex-1 w-full flex flex-col gap-10 items-center py-10">
+    <div class="flex-1 w-full flex flex-col gap-10 items-center py-16">
             <input class=" w-2/3 p-2 px-4 text-base self-center rounded-full border border-lightcharcoal"
                     placeholder="Search ingredients..."/>
 
-            <div class="h-full w-full p-4 md:p-10 grid gap-10 grid-cols-1 md:grid-cols-2">
+            <div class="h-full w-full p-4 ">
                 {recipes.map((recipe, i) => {
                     const side = sidedish[i % sidedish.length];
         return (
             <>
-                <div class="recipe-card flex flex-col gap-4 md:gap-6 border-b border-b-lightcharcoal/40">
+            
+                <div class="recipe-card md:hidden flex flex-col gap-4 md:gap-6 border-b border-b-lightcharcoal/40">
                     <div class="dish flex flex-col gap-4 md:gap-6">
                         <div class="tag bg-lightcharcoal/20 p-2 px-4 flex justify-center rounded-full w-fit">
-                            <span class="font-serif text-heading/80 font-semibold tracking-[0.2rem] text-xs">{recipe.data.category}</span>
+                            <span class="font-serif text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
                         </div>
                     
                         <img src={recipe.data.image} alt={recipe.data.title} 
                             class="w-full h-60 object-cover rounded-sm"/>
 
                         <div class="flex flex-col gap-3">
-                        <h3 class="text-heading text-3xl font-serif tracking-wide">{recipe.data.title}</h3>
+                        <h3 class="text-heading text-2xl font-serif tracking-wide">{recipe.data.title}</h3>
                     
-                        <div class="text-lightcharcoal/80 font-sans flex flex-row justify-between">
-                            <p class="text-base "><strong>{recipe.data.calories}</strong> cal</p> 
-                            <p class="text-base "><strong>{recipe.data.time}</strong>mins</p>
+                        <div class="text-lightcharcoal/80 text-sm font-sans flex flex-row justify-between">
+                            <p class=" "><strong>{recipe.data.calories}</strong> cal</p> 
+                            <p class=" "><strong>{recipe.data.time}</strong>mins</p>
                         </div>
 
                             <a href="/content/recipes"><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
@@ -62,8 +67,118 @@ const sidedish = await getCollection('sidedish');
                 </>
                 )
 })}
-            </div>        
+            </div>  
+
+            <!--DESKTOP -->
+            <div class="hidden md:flex gap-20">
+                <div class="left-col flex flex-col">
+                    {recipes.map((recipe, i) => {
+                    const side = sidedish[i % sidedish.length];
+        return (
+            <>
+            
+                <div class="recipe-card flex flex-col gap-4 border-b border-b-lightcharcoal/40">
+                    <div class="dish border  border-lightcharcoal p-8 flex flex-col gap-4 ">
+                        <div class="tag bg-lightcharcoal/20 p-2 px-4 flex justify-center rounded-full w-fit">
+                            <span class="font-serif text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
+                        </div>
+                    
+                        <img src={recipe.data.image} alt={recipe.data.title} 
+                            class="w-full h-60 object-cover rounded-sm"/>
+
+                        <div class="flex flex-col gap-3">
+                        <h3 class="text-heading text-2xl font-serif tracking-wide">{recipe.data.title}</h3>
+                    
+                        <div class="text-lightcharcoal/80 text-sm font-sans flex flex-row justify-between">
+                            <p class=" "><strong>{recipe.data.calories}</strong> cal</p> 
+                            <p class=" "><strong>{recipe.data.time}</strong>mins</p>
+                        </div>
+
+                            <a href="/content/recipes"><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
+                                View more →
+                            </button></a>
+                        </div>
+                    </div>
+                    
+                    {side && (
+                    <div class="side-dish-row flex flex-row items-center gap-4 mb-4 px-8 py-6">
+                        <img src={side.data.image} alt={side.data.title}
+                            class="w-20 h-20 object-cover rounded-full "/>
+                        <span class="text-xs tracking-[0.15rem] text-heading/60 uppercase">{side.data.title}</span>
+                        
+                            <a href="/content/sidedish">
+                                <img src="/img/Vector.svg"
+                                class="w-4 h-4 hover:text-warmhover"/>
+                            </a>
+                    </div>
+                )}
+
+                </div>
+                </>
+                )
+})}
+                </div>
+
+                <div class="right-col flex flex-col">
+                     {recipes.map((recipe, i) => {
+                    const side = sidedish[i % sidedish.length];
+        return (
+            <>
+
+            {side && (
+                    <div class="side-dish-row flex flex-row self-end items-center gap-4 mb-4 px-8 py-6">
+                        <img src={side.data.image} alt={side.data.title}
+                            class="w-20 h-20 object-cover rounded-full "/>
+                        <span class="text-xs tracking-[0.15rem] text-heading/60 uppercase">{side.data.title}</span>
+                        
+                            <a href="/content/sidedish">
+                                <img src="/img/Vector.svg"
+                                class="w-4 h-4 hover:text-warmhover"/>
+                            </a>
+                    </div>
+                )}
+
+            
+                <div class="recipe-card flex flex-col gap-4 border-b border-b-lightcharcoal/40">
+                    <div class="dish border border-lightcharcoal p-8 flex flex-col gap-4 ">
+                        <div class="tag bg-lightcharcoal/20 p-2 px-4 flex justify-center rounded-full w-fit">
+                            <span class="font-serif text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
+                        </div>
+                    
+                        <img src={recipe.data.image} alt={recipe.data.title} 
+                            class="w-full h-60 object-cover rounded-sm"/>
+
+                        <div class="flex flex-col gap-3">
+                        <h3 class="text-heading text-2xl font-serif tracking-wide">{recipe.data.title}</h3>
+                    
+                        <div class="text-lightcharcoal/80 text-sm font-sans flex flex-row justify-between">
+                            <p class=" "><strong>{recipe.data.calories}</strong> cal</p> 
+                            <p class=" "><strong>{recipe.data.time}</strong>mins</p>
+                        </div>
+
+                            <a href="/content/recipes"><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
+                                View more →
+                            </button></a>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                </>
+                )
+})}
+                </div>
+            </div>
+
+           
+            <a href="/pages/recipes">
+                <button class="font-sans text-heading tracking-widest border border-lightcharcoal rounded-full py-2 px-6 hover:text-bg hover:bg-warmhover">
+                    All Recipes
+                </button>
+            </a>
+
     </div>
 
+    
 
     </div>
