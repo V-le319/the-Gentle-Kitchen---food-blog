@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const journals = await getCollection('journals');
+  return journals.map((journal) => ({
+    params: { slug: journal.id },
+    props: { journal },
+  }));
+}
+
+const { journal } = Astro.props;
+const { Content } = await render(journal);
+---
+<article class="max-w-3xl mx-auto py-20 px-6 font-serif text-heading">
+  <div class="flex items-baseline gap-3 mb-4">
+    <span class="text-5xl font-serif">{journal.data.date}</span>
+  </div>
+  <hr class="border-lightcharcoal w-24 mb-6" />
+  <h1 class="text-5xl font-serif mb-8">{journal.data.title}</h1>
+  <div class="prose prose-lg font-sans text-lightcharcoal">
+    <Content />
+  </div>
+</article>

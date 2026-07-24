@@ -23,4 +23,14 @@ const sidedish = defineCollection({
   }),
 });
 
-export const collections = { recipes, sidedish };
+const journals = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/journals' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    image: z.string(),
+    heading: z.string(),
+  })
+})
+
+export const collections = { recipes, sidedish, journals };

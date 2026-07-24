@@ -1,5 +1,7 @@
 ---
+import { getCollection } from 'astro:content';
 
+const journals = await getCollection('journals');
 ---
 <div class="min-h-screen flex flex-cols justify-center w-full border-t-0 border border-lightcharcoal">
 
@@ -10,7 +12,119 @@
     </div>
 
     <div class="flex-1 w-full flex flex-col gap-10 items-center py-16">
-        <h2 class="font-serif text-3xl md:text-4xl tracking-wide text-heading">Notes From The Kitchen</h2>
+            
+        <h2 class="font-serif text-3xl md:text-4xl tracking-wide text-heading mb-4">Notes From The Kitchen</h2>
+        
+         <div class="flex justify-center w-full">
+        <div class="relative w-60 " id="journal-stack">
+            {journals.map((journal, i) => (
+                <div
+                    class="journal-card md:w-70 absolute top-0 left-0 w-60 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
+                    data-index={i}
+                    data-slug={journal.id}
+                >
+                    <span class="text-xs text-lightcharcoal/60 font-sans tracking-widest">{journal.data.date}</span>
+                    <img src={journal.data.image} alt={journal.data.title} class="object-cover w-full h-60" />
+                    <div>
+                        <h3 class="font-serif text-xl tracking-wide text-heading/80 font-medium">{journal.data.title}</h3>
+                        <span class="text-lightcharcoal/60 text-xs font-sans italic">{journal.data.heading}</span>
+                    </div>
+                </div>
+            ))}
         </div>
+    </div>
 
-        </div>
+    <div class="flex items-center gap-4 font-sans">
+        <button id="prev-journal" aria-label="Previous" class="w-9 h-9 flex items-center justify-center border border-lightcharcoal rounded-full text-lightcharcoal hover:bg-lightcharcoal hover:text-bg transition-colors">←</button>
+        <span id="journal-dots" class="flex gap-1"></span>
+        <button id="next-journal" aria-label="Next" class="w-9 h-9 flex items-center justify-center border border-lightcharcoal rounded-full text-lightcharcoal hover:bg-lightcharcoal hover:text-bg transition-colors">→</button>
+    </div>
+</div>
+
+</div>
+
+<script>
+  const cards = Array.from(document.querySelectorAll('.journal-card'));
+  const dotsContainer = document.getElementById('journal-dots');
+  const stack = document.getElementById('journal-stack');
+  const total = cards.length;
+  let active = 0;
+
+  cards.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = `w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-lightcharcoal' : 'bg-lightcharcoal/30'}`;
+    dotsContainer.appendChild(dot);
+  });
+  const dots = Array.from(dotsContainer.children);
+
+  function goTo(slug) {
+    if (slug) window.location.href = `/journals/${slug}`;
+  }
+
+  function getOffsets() {
+    const isDesktop = window.innerWidth >= 768;
+    return isDesktop
+      ? [ { x: 0, y: 0 }, { x: 80, y: 70 }, { x: 150, y: 130 } ]
+      : [ { x: 0, y: 0 }, { x: 50, y: 50 }, { x: 90, y: 95 } ];
+  }
+
+  function render() {
+    const offsets = getOffsets();
+    const maxX = offsets[offsets.length - 1].x;
+    const maxY = offsets[offsets.length - 1].y;
+    const cardWidth = cards[0].offsetWidth;
+    const cardHeight = cards[0].offsetHeight;
+
+        
+    stack.style.height = `${cardHeight + maxY}px`;
+
+    cards.forEach((card, i) => {
+      const pos = (i - active + total) % total;
+      card.onclick = null;
+      if (pos < 3) {
+        const { x, y } = offsets[pos];
+        card.style.transform = `translateX(${x - maxX / 2}px) translateY(${y}px) scale(${1 - pos * 0.05})`;
+        card.style.zIndex = String(3 - pos);
+        card.style.opacity = '1';
+        card.onclick = pos === 0
+          ? () => goTo(card.dataset.slug)
+          : () => { active = i; render(); };
+      } else {
+        card.style.transform = `translateX(${maxX / 2}px) translateY(${maxY}px) scale(0.85)`;
+        card.style.zIndex = '0';
+        card.style.opacity = '0';
+      }
+    });
+    dots.forEach((d, i) => {
+      d.className = `w-1.5 h-1.5 rounded-full ${i === active ? 'bg-lightcharcoal' : 'bg-lightcharcoal/30'}`;
+    });
+  }
+
+  document.getElementById('prev-journal').addEventListener('click', () => {
+    active = (active - 1 + total) % total;
+    render();
+  });
+  document.getElementById('next-journal').addEventListener('click', () => {
+    active = (active + 1) % total;
+    render();
+  });
+
+  let touchStartX = 0;
+  stack.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
+  stack.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].clientX - touchStartX;
+    if (diff > 50) {
+      active = (active - 1 + total) % total;
+      render();
+    } else if (diff < -50) {
+      active = (active + 1) % total;
+      render();
+    }
+  });
+
+  window.addEventListener('resize', render);
+
+  render();
+</script>
