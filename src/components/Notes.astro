@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 
 const journals = await getCollection('journals');
 ---
-<div class="min-h-screen flex flex-cols justify-center w-full border-t-0 border border-lightcharcoal">
+<div class="min-h-screen flex justify-center w-full border-t-0 border border-lightcharcoal">
 
     <div class="side-bar sticky top-0 h-screen font-serif text-lightcharcoal border-r border-t-0 w-1/9 md:w-1/12  border-lightcharcoal flex items-center justify-center">
         <span class="-rotate-90 text-sm md:text-lg tracking-[0.8rem] font-medium whitespace-nowrap">
@@ -15,11 +15,11 @@ const journals = await getCollection('journals');
             
         <h2 class="font-serif text-3xl md:text-4xl tracking-wide text-heading mb-4">Notes From The Kitchen</h2>
         
-         <div class="flex justify-center w-full">
-        <div class="relative w-60 " id="journal-stack">
+         <div class="flex justify-center w-full ">
+        <div class="relative w-full " id="journal-stack">
             {journals.map((journal, i) => (
                 <div
-                    class="journal-card md:w-70 absolute top-0 left-0 w-60 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
+                    class="journal-card md:w-70 absolute top-0 left-1/2 w-60 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
                     data-index={i}
                     data-slug={journal.id}
                 >
@@ -62,43 +62,36 @@ const journals = await getCollection('journals');
   }
 
   function getOffsets() {
-    const isDesktop = window.innerWidth >= 768;
-    return isDesktop
-      ? [ { x: 0, y: 0 }, { x: 80, y: 70 }, { x: 150, y: 130 } ]
-      : [ { x: 0, y: 0 }, { x: 50, y: 50 }, { x: 90, y: 95 } ];
-  }
+  const isDesktop = window.innerWidth >= 768;
+  return isDesktop
+    ? [ { x: 0, y: 0 }, { x: 45, y: 40 }, { x: -45, y: 75 } ]
+    : [ { x: 0, y: 0 }, { x: 30, y: 30 }, { x: -30, y: 55 } ];
+}
 
-  function render() {
-    const offsets = getOffsets();
-    const maxX = offsets[offsets.length - 1].x;
-    const maxY = offsets[offsets.length - 1].y;
-    const cardWidth = cards[0].offsetWidth;
-    const cardHeight = cards[0].offsetHeight;
+function render() {
+  const offsets = getOffsets();
+  const maxY = offsets[offsets.length - 1].y;
+  const cardHeight = cards[0].offsetHeight;
 
-        
-    stack.style.height = `${cardHeight + maxY}px`;
+  stack.style.height = `${cardHeight + maxY}px`;
 
-    cards.forEach((card, i) => {
-      const pos = (i - active + total) % total;
-      card.onclick = null;
-      if (pos < 3) {
-        const { x, y } = offsets[pos];
-        card.style.transform = `translateX(${x - maxX / 2}px) translateY(${y}px) scale(${1 - pos * 0.05})`;
-        card.style.zIndex = String(3 - pos);
-        card.style.opacity = '1';
-        card.onclick = pos === 0
-          ? () => goTo(card.dataset.slug)
-          : () => { active = i; render(); };
-      } else {
-        card.style.transform = `translateX(${maxX / 2}px) translateY(${maxY}px) scale(0.85)`;
-        card.style.zIndex = '0';
-        card.style.opacity = '0';
-      }
-    });
-    dots.forEach((d, i) => {
-      d.className = `w-1.5 h-1.5 rounded-full ${i === active ? 'bg-lightcharcoal' : 'bg-lightcharcoal/30'}`;
-    });
-  }
+  cards.forEach((card, i) => {
+    const pos = (i - active + total) % total;
+    card.onclick = null;
+    const { x, y } = pos < 3 ? offsets[pos] : offsets[offsets.length - 1];
+    card.style.transform = `translate(calc(-50% + ${x}px), ${y}px) scale(${1 - pos * 0.05})`;
+    card.style.zIndex = pos < 3 ? String(3 - pos) : '0';
+    card.style.opacity = pos < 3 ? '1' : '0';
+    if (pos < 3) {
+      card.onclick = pos === 0
+        ? () => goTo(card.dataset.slug)
+        : () => { active = i; render(); };
+    }
+  });
+  dots.forEach((d, i) => {
+    d.className = `w-1.5 h-1.5 rounded-full ${i === active ? 'bg-lightcharcoal' : 'bg-lightcharcoal/30'}`;
+  });
+}
 
   document.getElementById('prev-journal').addEventListener('click', () => {
     active = (active - 1 + total) % total;
