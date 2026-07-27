@@ -29,7 +29,10 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
             <>
             
                 <div class="recipe-card md:hidden flex flex-col gap-4 md:gap-6 border-b border-b-lightcharcoal/40">
-                    <div class="dish flex flex-col gap-4 md:gap-6">
+                    <div class:list={[
+    "dish flex flex-col gap-4 md:gap-6",
+    i === 0 ? "pt-0" : "pt-6",
+  ]}>
                         <div class="tag bg-lightcharcoal/20 p-2 px-4 flex justify-center rounded-full w-fit">
                             <span class="font-serif text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
                         </div>
