@@ -4,7 +4,8 @@ import { getCollection } from 'astro:content';
 const sidedish = await getCollection('sidedish');
 const LIMIT = 4; 
 const recipes = (await getCollection('recipes')).slice(0, LIMIT);
-
+const leftRecipes = recipes.filter((_, i) => i % 2 === 0);
+const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
 
 ---
 
@@ -17,7 +18,7 @@ const recipes = (await getCollection('recipes')).slice(0, LIMIT);
         </span>
     </div>
 
-    <div class="flex-1 w-full flex flex-col gap-10 items-center py-16">
+    <div class="flex-1 w-full flex flex-col gap-10 items-center py-16 md:py-24">
             <input class=" w-2/3 p-2 px-4 text-base self-center rounded-full border border-lightcharcoal"
                     placeholder="Search ingredients..."/>
 
@@ -70,14 +71,17 @@ const recipes = (await getCollection('recipes')).slice(0, LIMIT);
             </div>  
 
             <!--DESKTOP -->
-            <div class="hidden md:flex gap-20">
-                <div class="left-col flex flex-col">
-                    {recipes.map((recipe, i) => {
-                    const side = sidedish[i % sidedish.length];
+            <div class="hidden w-full justify-center px-36 md:flex gap-20">
+                <div class="w-1/2 left-col flex flex-col">
+                    {leftRecipes.map((recipe, i) => {
+                    const side = sidedish[(i * 2) % sidedish.length];
         return (
             <>
             
-                <div class="recipe-card flex flex-col gap-4 border-b border-b-lightcharcoal/40">
+                <div class:list={[
+    "recipe-card flex flex-col gap-4",
+    i !== leftRecipes.length - 1 && "border-b border-b-lightcharcoal/40"
+  ]}>
                     <div class="dish border  border-lightcharcoal p-8 flex flex-col gap-4 ">
                         <div class="tag bg-lightcharcoal/20 p-2 px-4 flex justify-center rounded-full w-fit">
                             <span class="font-serif text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
@@ -119,9 +123,9 @@ const recipes = (await getCollection('recipes')).slice(0, LIMIT);
 })}
                 </div>
 
-                <div class="right-col flex flex-col">
-                     {recipes.map((recipe, i) => {
-                    const side = sidedish[i % sidedish.length];
+                <div class="right-col w-1/2 flex flex-col">
+                     {rightRecipes.map((recipe, i) => {
+                    const side = sidedish[(i * 2 + 1) % sidedish.length];
         return (
             <>
 
@@ -139,7 +143,10 @@ const recipes = (await getCollection('recipes')).slice(0, LIMIT);
                 )}
 
             
-                <div class="recipe-card flex flex-col gap-4 border-b border-b-lightcharcoal/40">
+                <div class:list={[
+    "recipe-card flex flex-col gap-4",
+    i !== rightRecipes.length - 1 && "border-b border-b-lightcharcoal/40"
+  ]}>
                     <div class="dish border border-lightcharcoal p-8 flex flex-col gap-4 ">
                         <div class="tag bg-lightcharcoal/20 p-2 px-4 flex justify-center rounded-full w-fit">
                             <span class="font-serif text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
@@ -172,7 +179,7 @@ const recipes = (await getCollection('recipes')).slice(0, LIMIT);
 
            
             <a href="/pages/recipes">
-                <button class="font-sans text-heading tracking-widest border border-lightcharcoal rounded-full py-2 px-6 hover:text-bg hover:bg-warmhover">
+                <button class="font-sans text-heading tracking-widest border border-lightcharcoal rounded-full py-2 px-6 md:px-10 hover:text-bg hover:bg-warmhover">
                     All Recipes
                 </button>
             </a>
