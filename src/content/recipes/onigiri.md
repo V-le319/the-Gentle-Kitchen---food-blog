@@ -1,5 +1,5 @@
 ---
-title: Onigiri - Rice Ball
+title: Onigiri 
 category: SNACK
 calories: 400
 time: 30

@@ -1,0 +1,55 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Navbar from "../../components/Navbar.astro";
+import { getCollection } from "astro:content";
+const recipes = await getCollection('recipes');
+---
+
+<Layout>
+    <Navbar/>
+    <main class="min-h-screen w-full flex flex-col gap-10 py-12 px-4 md:p-16">
+     
+        <div class="top w-full flex justify-between items-stretch">
+            <div class="left-content w-2/3 flex flex-col gap-6 md:gap-10">
+                <h1 class="text-4xl md:text-6xl md:leading-18 font-serif  tracking-[0.5rem] leading-12 text-heading">ALL RECIPES</h1>
+                <div class="dish-type flex items-center text-lightcharcoal md:text-sm text-xs font-sans tracking-[0.3rem] md:tracking-[0.5rem]">
+                    <span class="pr-6 hover:text-warmhover">SOUP</span>
+                    <span class="border-l border-lightcharcoal pl-6 pr-6 hover:text-warmhover">MAIN</span>
+                    <span class="border-l border-lightcharcoal pl-6 hover:text-warmhover">SNACK</span>
+                    </div>
+            </div>
+
+            <div class="side-bar w-8 self-right font-serif  text-lightcharcoal flex items-center justify-center">
+        <span class="[writing-mode:vertical-rl] [text-orientation:upright] mt-2 text-sm md:text-lg tracking-[0.8rem] font-medium">
+            HOME FOOD
+        </span>
+    </div>
+        </div>
+
+        <div class="recipe-cards w-full flex flex-col justtify-center gap-8">
+            <div class="tagline w-2/3 text-sm text-lightcharcoal leading-relaxed font-sans tracking-widest">
+                <span>Cooking without the performance.</span><br>
+                <span>Here are our recipes for comfort foods.</span>
+            </div>
+
+            <div class="card-grid w-full justify-center grid grid-cols-2 gap-6 md:gap-16 md:grid-cols-4">
+                {recipes.map((recipe) => (
+                    <a href={`/recipes/${recipe.slug}`}>
+                    <div class= "md:h-90 h-60 flex flex-col gap-4 hover:scale-110 duration-300 border border-lightcharcoal md:p-6 p-3">
+                        <img src={recipe.data.image}
+                                class="h-3/4 w-full object-cover drop-shadow-sm"/>
+                        <h3 class="text-heading flex items-center md:text-xl md:mt-4 font-serif italic">{recipe.data.title}</h3>
+   
+                    </div>
+                    </a>
+  ))}
+            </div>
+
+            <div class="flex items-center justify-center gap-4 font-sans mt-6">
+        <button id="prev-journal" aria-label="Previous" class="w-9 h-9 flex items-center justify-center border border-lightcharcoal rounded-full text-lightcharcoal hover:bg-button hover:text-bg transition-colors">←</button>
+        <span id="journal-dots" class="flex gap-1"></span>
+        <button id="next-journal" aria-label="Next" class="w-9 h-9 flex items-center justify-center border border-lightcharcoal rounded-full text-lightcharcoal hover:bg-button hover:text-bg transition-colors">→</button>
+    </div>
+        </div>
+    </main>
+</Layout>
