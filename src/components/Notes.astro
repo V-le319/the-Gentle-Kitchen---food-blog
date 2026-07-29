@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 
 const journals = await getCollection('journals');
 ---
-<div class="min-h-screen flex justify-center w-full border-t-0 border border-lightcharcoal">
+<div class="h-screen flex justify-center w-full border-t-0 border border-lightcharcoal">
 
     <div class="side-bar sticky top-0 h-screen font-serif text-lightcharcoal border-r border-t-0 w-1/9 md:w-1/12  border-lightcharcoal flex items-center justify-center">
         <span class="-rotate-90 text-sm md:text-lg tracking-[0.8rem] font-medium whitespace-nowrap">
@@ -11,7 +11,7 @@ const journals = await getCollection('journals');
         </span>
     </div>
 
-    <div class="flex-1 w-full flex flex-col gap-10 items-center py-16">
+    <div class="flex-1 w-full flex flex-col gap-10 justify-center items-center py-16">
             
         <h2 class="font-serif text-3xl md:text-4xl tracking-wide text-heading mb-4">Notes From The Kitchen</h2>
         
