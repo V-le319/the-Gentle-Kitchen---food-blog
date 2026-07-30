@@ -1,6 +1,6 @@
 ---
 title: Onigiri 
-category: SNACK
+category: MAIN
 calories: 400
 time: 30
 image: /img/FOOD PIC/images (2).jfif

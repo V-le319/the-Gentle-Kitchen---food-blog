@@ -6,7 +6,7 @@ const recipes = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string().optional(),
-        category: z.enum(['SOUP', 'MAIN', 'SNACK']),
+        category: z.enum(['SOUP', 'MAIN', 'SIDE']),
         calories: z.number(),
         time: z.number(),
         image: z.string(),
@@ -17,20 +17,6 @@ const recipes = defineCollection({
     })
 });
 
-const sidedish = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/sidedish' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-    calories: z.number(),
-    time: z.number(),
-    image: z.string(),
-    ingredients: z.array(z.string()).optional(),
-    prepare: z.array(z.string()).optional(),
-    steps: z.array(z.string()).optional(),
-    serving: z.string().optional(),
-  }),
-});
 
 const journals = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/journals' }),
@@ -42,4 +28,4 @@ const journals = defineCollection({
   })
 })
 
-export const collections = { recipes, sidedish, journals };
+export const collections = { recipes, journals };

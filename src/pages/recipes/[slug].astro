@@ -22,12 +22,12 @@ const { Content } = await render(recipe);
             <div class="tag bg-lightcharcoal/20 px-2 py-1 flex justify-center items-center rounded-full w-fit">
                 <span class="font-sans text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
             </div>
-            <h1 class="text-4xl md:text-6xl md:leading-18 font-serif tracking-[0.3rem] leading-12 text-heading">{recipe.data.title}</h1>
+            <h1 class="text-4xl md:w-1/2 md:text-6xl md:leading-18 font-serif tracking-[0.3rem] leading-12 text-heading">{recipe.data.title}</h1>
             <span class="text-lightcharcoal text-sm font-sans italic">{recipe.data.description}</span>
         </div>
 
         <div class="main-section w-full flex flex-col gap-10 md:mb-16 justify-center md:items-end md:flex-row md:justify-between">
-            <div class="h-full order-2 md:order-1 ">
+            <div class="h-full md:w-2/5 order-2 md:order-1 ">
                 <h3 class="uppercase font-semibold text-base text-warmhover mb-4 tracking-widest">Ingrdients</h3>
                 {recipe.data.ingredients?.map((item) => (
                     <ul class="list-disc list-inside ">
@@ -40,9 +40,9 @@ const { Content } = await render(recipe);
 
         </div>
 
-        <div class="method-section w-full h-full justify-center  gap-16 flex flex-col md:gap-24 md:grid md:grid-cols-3 ">
-            <div class="prepare h-full flex flex-col gap-4 items-center justify-start">
-                <div class="w-16 h-16 flex items-center justify-center">
+        <div class="method-section w-full h-full justify-center items-start  gap-16 flex flex-col md:gap-24 md:grid md:grid-cols-3 ">
+            <div class="prepare h-full flex flex-col gap-4 md:items-center justify-start">
+                <div class="w-16 h-16 flex justify-center">
                     <img src="/img/PREPARE-ICON.png" class="max-w-full max-h-full object-contain"/>
                 </div>
                 <h3 class="uppercase font-semibold text-base  text-warmhover mb-4 tracking-widest">Prepare</h3>
@@ -56,7 +56,7 @@ const { Content } = await render(recipe);
                 
             </div>
             
-            <div class="cooking h-full flex flex-col gap-4 items-center justify-start">
+            <div class="cooking h-full flex flex-col gap-4 md:items-center justify-start">
                 <div class="w-16 h-16 flex items-center justify-center">
                     <img src="/img/COOKING-ICON.png"
                         class="max-w-full max-h-full object-contain"/>
@@ -71,7 +71,7 @@ const { Content } = await render(recipe);
                     </ul>
             </div>
             
-            <div class="serving h-full flex flex-col gap-4 items-center justify-start">
+            <div class="serving h-full flex flex-col gap-4 md:items-center justify-start">
                 <div class="w-16 h-16 flex items-center justify-center">
                     <img src="/img/SERVING-ICON.png"
                     class="max-w-full max-h-full object-contain"/>

@@ -1,9 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 
-const sidedish = await getCollection('sidedish');
+const allRecipes = await getCollection('recipes');
+const sidedish = allRecipes.filter((r) => r.data.category === 'SIDE');
+
 const LIMIT = 4; 
-const recipes = (await getCollection('recipes')).slice(0, LIMIT);
+const recipes = allRecipes
+    .filter((r) => r.data.category !== 'SIDE')
+    .slice(0, LIMIT);
 const leftRecipes = recipes.filter((_, i) => i % 2 === 0);
 const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
 
@@ -61,7 +65,7 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
                             class="w-20 h-20 object-cover rounded-full "/>
                         <span class="text-xs tracking-[0.15rem] text-heading/60 uppercase">{side.data.title}</span>
                         
-                            <a href="/content/sidedish">
+                            <a href={`/recipes/${side.id}`}>
                                 <img src="/img/Vector.svg"
                                 class="w-4 h-4 hover:text-warmhover"/>
                             </a>
@@ -114,7 +118,7 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
                             class="w-20 h-20 object-cover rounded-full "/>
                         <span class="text-xs tracking-[0.15rem] text-heading/60 uppercase">{side.data.title}</span>
                         
-                            <a href="/content/sidedish">
+                            <a href={`/recipes/${side.id}`}>
                                 <img src="/img/Vector.svg"
                                 class="w-4 h-4 hover:text-warmhover"/>
                             </a>
@@ -139,7 +143,7 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
                             class="w-20 h-20 object-cover rounded-full "/>
                         <span class="text-xs tracking-[0.15rem] text-heading/60 uppercase">{side.data.title}</span>
                         
-                            <a href="/content/sidedish">
+                            <a href={`/recipes/${side.id}`}>
                                 <img src="/img/Vector.svg"
                                 class="w-4 h-4 hover:text-warmhover"/>
                             </a>

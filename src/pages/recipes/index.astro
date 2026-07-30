@@ -15,7 +15,7 @@ const recipes = await getCollection('recipes');
                 <div class="dish-type flex items-center text-lightcharcoal md:text-sm text-xs font-sans tracking-[0.3rem] md:tracking-[0.5rem]">
                     <span class="pr-6 cursor-pointer hover:text-warmhover" data-filter="SOUP">SOUP</span>
                     <span class="border-l cursor-pointer border-lightcharcoal pl-6 pr-6 hover:text-warmhover" data-filter="MAIN">MAIN</span>
-                    <span class="border-l cursor-pointer border-lightcharcoal pl-6 hover:text-warmhover" data-filter="SNACK">SNACK</span>
+                    <span class="border-l cursor-pointer border-lightcharcoal pl-6 hover:text-warmhover" data-filter="SIDE">SIDE</span>
                     </div>
             </div>
 
@@ -60,20 +60,64 @@ const recipes = await getCollection('recipes');
 
 <script>
     const filters = document.querySelectorAll('[data-filter]');
-    const cards = document.querySelectorAll('[data-category]');
+    const cards = Array.from(document.querySelectorAll('[data-category]'));
     let activeFilter: string | null = null;
+
+    const PAGE_SIZE = 8;
+    let currentPage = 0;
+
+    function getVisibleCards() {
+        return cards.filter((card) =>
+            !activeFilter || card.getAttribute('data-category') === activeFilter
+        );
+    }
+
+    function renderPage() {
+        const visible = getVisibleCards();
+        const totalPages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
+        currentPage = Math.min(currentPage, totalPages - 1);
+
+        cards.forEach((card) => card.classList.add('hidden'));
+
+        const start = currentPage * PAGE_SIZE;
+        visible.slice(start, start + PAGE_SIZE).forEach((card) => card.classList.remove('hidden'));
+
+        const dotsEl = document.getElementById('journal-dots');
+        if (dotsEl) {
+            dotsEl.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('span');
+                dot.className = `w-2 h-2 rounded-full ${i === currentPage ? 'bg-warmhover' : 'bg-lightcharcoal/40'}`;
+                dotsEl.appendChild(dot);
+            }
+        }
+
+        const prevBtn = document.getElementById('prev-journal') as HTMLButtonElement;
+        const nextBtn = document.getElementById('next-journal') as HTMLButtonElement;
+        if (prevBtn) prevBtn.disabled = currentPage === 0;
+        if (nextBtn) nextBtn.disabled = currentPage === totalPages - 1;
+    }
 
     filters.forEach((filter) => {
         filter.addEventListener('click', () => {
             const value = filter.getAttribute('data-filter');
-            activeFilter = activeFilter === value ? null : value; // click again to clear
-
-            cards.forEach((card) => {
-                const match = !activeFilter || card.getAttribute('data-category') === activeFilter;
-                card.classList.toggle('hidden', !match);
-            });
+            activeFilter = activeFilter === value ? null : value;
+            currentPage = 0;
 
             filters.forEach((f) => f.classList.toggle('text-warmhover', f.getAttribute('data-filter') === activeFilter));
+            renderPage();
         });
     });
+
+    document.getElementById('prev-journal')?.addEventListener('click', () => {
+        currentPage = Math.max(0, currentPage - 1);
+        renderPage();
+    });
+
+    document.getElementById('next-journal')?.addEventListener('click', () => {
+        currentPage += 1;
+        renderPage();
+    });
+
+    renderPage();
 </script>
