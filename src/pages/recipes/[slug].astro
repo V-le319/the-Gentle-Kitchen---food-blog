@@ -1,0 +1,90 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const recipes = await getCollection('recipes');
+  return recipes.map((recipe) => ({
+    params: { slug: recipe.id },
+    props: { recipe },
+  }));
+}
+
+const { recipe } = Astro.props;
+const { Content } = await render(recipe);
+---
+
+<Layout>
+    <Navbar/>
+    <main class="min-h-screen w-full flex flex-col gap-10 md:gap-16 py-12 px-4 md:py-18 md:px-36">
+        <div class="heading flex flex-col gap-4 mb-4">
+            <div class="tag bg-lightcharcoal/20 px-2 py-1 flex justify-center items-center rounded-full w-fit">
+                <span class="font-sans text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl md:leading-18 font-serif tracking-[0.3rem] leading-12 text-heading">{recipe.data.title}</h1>
+            <span class="text-lightcharcoal text-sm font-sans italic">{recipe.data.description}</span>
+        </div>
+
+        <div class="main-section w-full flex flex-col gap-10 md:mb-16 justify-center md:items-end md:flex-row md:justify-between">
+            <div class="h-full order-2 md:order-1 ">
+                <h3 class="uppercase font-semibold text-base text-warmhover mb-4 tracking-widest">Ingrdients</h3>
+                {recipe.data.ingredients?.map((item) => (
+                    <ul class="list-disc list-inside ">
+                    <li class="text-base font-sans leading-7 text-heading ">{item}</li>
+                    </ul>
+                ))}
+            </div>
+            <img src={recipe.data.image}
+                    class="order-1 md:order-2 md:w-3/5 h-[450px] rounded-sm  object-cover"/>
+
+        </div>
+
+        <div class="method-section w-full h-full justify-center  gap-16 flex flex-col md:gap-24 md:grid md:grid-cols-3 ">
+            <div class="prepare h-full flex flex-col gap-4 items-center justify-start">
+                <div class="w-16 h-16 flex items-center justify-center">
+                    <img src="/img/PREPARE-ICON.png" class="max-w-full max-h-full object-contain"/>
+                </div>
+                <h3 class="uppercase font-semibold text-base  text-warmhover mb-4 tracking-widest">Prepare</h3>
+                <ul class="self-start w-full list-disc list-inside ">
+                    {recipe.data.prepare.map((step) => (
+                        
+                    <li class="text-base font-sans leading-7 text-heading ">{step}</li>
+                    
+                    ))}
+                    </ul>
+                
+            </div>
+            
+            <div class="cooking h-full flex flex-col gap-4 items-center justify-start">
+                <div class="w-16 h-16 flex items-center justify-center">
+                    <img src="/img/COOKING-ICON.png"
+                        class="max-w-full max-h-full object-contain"/>
+                </div>
+                <h3 class="uppercase font-semibold text-base text-warmhover mb-4 tracking-widest">Cooking</h3>
+                <ul class="self-start w-full list-disc list-inside ">
+                    {recipe.data.steps.map((step) => (
+                        
+                    <li class="text-base font-sans leading-7 text-heading ">{step}</li>
+                    
+                    ))}
+                    </ul>
+            </div>
+            
+            <div class="serving h-full flex flex-col gap-4 items-center justify-start">
+                <div class="w-16 h-16 flex items-center justify-center">
+                    <img src="/img/SERVING-ICON.png"
+                    class="max-w-full max-h-full object-contain"/>
+                </div>
+                <h3 class="uppercase font-semibold text-base  text-warmhover mb-4 tracking-widest">Serving</h3>
+                <div class="self-start w-full  flex flex-col text-heading text-base items-start">
+                    {recipe.data.serving}
+                </div>
+            </div>
+
+            <a href="/recipes">
+                <button class="hover:tracking-[0.4rem] transition-all duration-300 cursor-pointerborder shadown-md border border-lightcharcoal/80 rounded-xs px-6 py-2 s hover:bg-warmhover hover:text-white  text-heading font-sans tracking-[0.2rem]">All Recipes</button>
+            </a>
+        </div>
+    </main>
+</Layout>

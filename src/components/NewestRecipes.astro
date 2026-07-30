@@ -48,7 +48,8 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
                             <p class=" "><strong>{recipe.data.time}</strong>mins</p>
                         </div>
 
-                            <a href="/content/recipes"><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
+                            <a href={`/recipes/${recipe.id}`}>
+                            <button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
                                 View more →
                             </button></a>
                         </div>
@@ -101,7 +102,7 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
                             <p class=" "><strong>{recipe.data.time}</strong>mins</p>
                         </div>
 
-                            <a href="/content/recipes"><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
+                            <a href={`/recipes/${recipe.id}`}><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
                                 View more →
                             </button></a>
                         </div>
@@ -166,7 +167,7 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
                             <p class=" "><strong>{recipe.data.time}</strong>mins</p>
                         </div>
 
-                            <a href="/content/recipes"><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
+                            <a href={`/recipes/${recipe.id}`}><button class="border border-lightcharcoal text-lightcharcoal mb-6 hover:bg-warmhover/80 hover:text-bg rounded-md px-4 py-2 w-fit self-center text-sm">
                                 View more →
                             </button></a>
                         </div>
@@ -182,7 +183,7 @@ const rightRecipes = recipes.filter((_, i) => i % 2 === 1);
 
            
             <a href="/recipes">
-                <button class="font-sans text-heading tracking-widest border border-lightcharcoal rounded-full py-2 px-6 md:px-10 hover:text-bg hover:bg-warmhover">
+                <button class="hover:tracking-[0.4rem] transition-all duration-300 cursor-pointerborder shadown-md border border-lightcharcoal/80 rounded-xs px-6 py-2 s hover:bg-warmhover hover:text-white  text-heading font-sans tracking-[0.2rem]">
                     All Recipes
                 </button>
             </a>

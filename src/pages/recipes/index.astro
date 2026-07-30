@@ -13,9 +13,9 @@ const recipes = await getCollection('recipes');
             <div class="left-content w-2/3 flex flex-col gap-6 md:gap-10">
                 <h1 class="text-4xl md:text-6xl md:leading-18 font-serif  tracking-[0.5rem] leading-12 text-heading">ALL RECIPES</h1>
                 <div class="dish-type flex items-center text-lightcharcoal md:text-sm text-xs font-sans tracking-[0.3rem] md:tracking-[0.5rem]">
-                    <span class="pr-6 hover:text-warmhover">SOUP</span>
-                    <span class="border-l border-lightcharcoal pl-6 pr-6 hover:text-warmhover">MAIN</span>
-                    <span class="border-l border-lightcharcoal pl-6 hover:text-warmhover">SNACK</span>
+                    <span class="pr-6 cursor-pointer hover:text-warmhover" data-filter="SOUP">SOUP</span>
+                    <span class="border-l cursor-pointer border-lightcharcoal pl-6 pr-6 hover:text-warmhover" data-filter="MAIN">MAIN</span>
+                    <span class="border-l cursor-pointer border-lightcharcoal pl-6 hover:text-warmhover" data-filter="SNACK">SNACK</span>
                     </div>
             </div>
 
@@ -34,12 +34,16 @@ const recipes = await getCollection('recipes');
 
             <div class="card-grid w-full justify-center grid grid-cols-2 gap-6 md:gap-16 md:grid-cols-4">
                 {recipes.map((recipe) => (
-                    <a href={`/recipes/${recipe.slug}`}>
-                    <div class= "md:h-90 h-60 flex flex-col gap-4 hover:scale-110 duration-300 border border-lightcharcoal md:p-6 p-3">
+                    <a href={`/recipes/${recipe.id}`} data-category={recipe.data.category}>
+                    <div class= "md:h-90 h-70 flex flex-col gap-4 hover:scale-110 duration-300 border border-lightcharcoal md:p-6 p-3">
                         <img src={recipe.data.image}
                                 class="h-3/4 w-full object-cover drop-shadow-sm"/>
-                        <h3 class="text-heading flex items-center md:text-xl md:mt-4 font-serif italic">{recipe.data.title}</h3>
-   
+                       <div class="flex justify-between mt-2 md:mt-4"> 
+                        <h3 class="text-heading flex items-center md:text-xl  font-serif italic">{recipe.data.title}</h3>
+                        <div class="tag bg-lightcharcoal/20 px-2 py-1 flex justify-center items-center rounded-full w-fit">
+                            <span class="font-sans text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
+                        </div>
+                       </div>
                     </div>
                     </a>
   ))}
@@ -53,3 +57,23 @@ const recipes = await getCollection('recipes');
         </div>
     </main>
 </Layout>
+
+<script>
+    const filters = document.querySelectorAll('[data-filter]');
+    const cards = document.querySelectorAll('[data-category]');
+    let activeFilter: string | null = null;
+
+    filters.forEach((filter) => {
+        filter.addEventListener('click', () => {
+            const value = filter.getAttribute('data-filter');
+            activeFilter = activeFilter === value ? null : value; // click again to clear
+
+            cards.forEach((card) => {
+                const match = !activeFilter || card.getAttribute('data-category') === activeFilter;
+                card.classList.toggle('hidden', !match);
+            });
+
+            filters.forEach((f) => f.classList.toggle('text-warmhover', f.getAttribute('data-filter') === activeFilter));
+        });
+    });
+</script>
