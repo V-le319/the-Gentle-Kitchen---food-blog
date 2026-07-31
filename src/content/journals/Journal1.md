@@ -1,6 +1,6 @@
 ---
-title: Journal 1
-date: 03 September 
-image: /img/download (6).jfif
-heading: quote of the essay
+title: On Slow Mornings and Good Broth
+date: 03 September 2026
+image: /img/download (7).jfif
+heading: Some days start with rice, and that's enough.
 ---

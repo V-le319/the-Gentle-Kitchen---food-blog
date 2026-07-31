@@ -1,6 +1,6 @@
 ---
-title: Journal 2
-date: 06 October 
+title: What My Grandmother Never Wrote Down
+date: 12 September 2026
 image: /img/download (8).jfif
-heading: quote of the essay
+heading: She never measured. She just knew.
 ---

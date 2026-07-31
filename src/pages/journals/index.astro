@@ -1,0 +1,132 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Navbar from "../../components/Navbar.astro";
+import { getCollection } from "astro:content";
+const journals = await getCollection('journals');
+---
+<Layout>
+    <Navbar/>
+    <main class="min-h-screen w-full flex flex-col gap-10 py-12 px-4 md:p-16">
+        <div class="top w-full flex justify-between items-stretch">
+            <div class="left-content w-2/3 flex flex-col gap-8 md:gap-14">
+                <h1 class="text-4xl md:text-6xl md:leading-18 font-serif  tracking-[0.5rem] leading-12 text-heading">
+                     JOURNALS</h1>
+                <div class="h-0.5 w-30 bg-lightcharcoal/60"></div>
+                <div class="tagline  text-sm text-lightcharcoal leading-relaxed font-sans tracking-widest">
+                    <span>Notes from the kitchen,</span><br>
+                    <span>and everywhere else life happens.</span>
+                </div>
+            </div>
+
+            <div class="side-bar w-8 self-right font-serif  text-lightcharcoal flex items-center justify-center">
+        <span class="[writing-mode:vertical-rl] [text-orientation:upright] mt-2 text-sm md:text-lg tracking-[0.8rem] font-medium">
+            COMFORT NOTES
+        </span>
+    </div>
+        </div>
+
+        <div class="card-grid w-full justify-center grid grid-cols-2 gap-4 md:gap-16 md:grid-cols-4">
+    {journals.map((journal, i) => {
+        const isImageFirst = i % 2 === 1;
+        return (
+            <a href={`/journals/${journal.id}`} class="block" data-journal-card>
+                {isImageFirst ? (
+                    <div class="relative md:h-100 h-75 border border-lightcharcoal hover:scale-110 duration-300 p-6 overflow-hidden">
+                        <img src={journal.data.image} alt={journal.data.title}
+                            class="absolute inset-0 opacity-55 w-full h-full object-cover"/>
+                        <div class="relative z-10 h-full flex flex-col text-heading justify-between">
+                            <span class="text-xs font-sans tracking-[0.15rem] md:w-30 w-[14ch]">{journal.data.heading}</span>
+                            <div class="self-end text-right flex flex-col gap-2 text-heading">
+                                <span class="text-xs">{journal.data.date}</span>
+                                <h3 class=" text-xl md:text-2xl font-serif font-medium ">{journal.data.title}</h3>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div class="md:h-100 h-75 w-full flex flex-col gap-4 justify-between hover:scale-110 duration-300 border border-lightcharcoal p-6">
+                        <div class="w-full flex gap-4 justify-between items-start">
+                            <div class="w-2/3 flex flex-col gap-2">
+                                <span class="text-xs text-heading/80">{journal.data.date}</span>
+                                <h3 class="text-heading text-xl md:text-2xl font-serif ">{journal.data.title}</h3>
+                            </div>
+                            <img src={journal.data.image} alt={journal.data.title}
+                                class="w-12 md:w-16 h-40 md:h-60 object-cover"/>
+                        </div>
+                        <span class="text-xs tracking-[0.15rem] text-heading/60 w-full">{journal.data.heading}</span>
+                    </div>
+                )}
+            </a>
+        );
+    })}
+</div>
+                    <div class="flex items-center justify-center gap-4 font-sans mt-6">
+                        <button id="prev-journal" aria-label="Previous" class="w-9 h-9 flex items-center justify-center border border-lightcharcoal rounded-full text-lightcharcoal hover:bg-button hover:text-bg transition-colors">←</button>
+                        <span id="journal-dots" class="flex gap-1"></span>
+                        <button id="next-journal" aria-label="Next" class="w-9 h-9 flex items-center justify-center border border-lightcharcoal rounded-full text-lightcharcoal hover:bg-button hover:text-bg transition-colors">→</button>
+                    </div>
+    </main>
+</Layout>
+
+<script>
+    const filters = document.querySelectorAll('[data-filter]');
+    const cards = Array.from(document.querySelectorAll('[data-journal-card]'));
+    let activeFilter: string | null = null;
+
+    const PAGE_SIZE = 8;
+    let currentPage = 0;
+
+    function getVisibleCards() {
+        return cards.filter((card) =>
+            !activeFilter || card.getAttribute('data-category') === activeFilter
+        );
+    }
+
+    function renderPage() {
+        const visible = getVisibleCards();
+        const totalPages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
+        currentPage = Math.min(currentPage, totalPages - 1);
+
+        cards.forEach((card) => card.classList.add('hidden'));
+
+        const start = currentPage * PAGE_SIZE;
+        visible.slice(start, start + PAGE_SIZE).forEach((card) => card.classList.remove('hidden'));
+
+        const dotsEl = document.getElementById('journal-dots');
+        if (dotsEl) {
+            dotsEl.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('span');
+                dot.className = `w-2 h-2 rounded-full ${i === currentPage ? 'bg-warmhover' : 'bg-lightcharcoal/40'}`;
+                dotsEl.appendChild(dot);
+            }
+        }
+
+        const prevBtn = document.getElementById('prev-journal') as HTMLButtonElement;
+        const nextBtn = document.getElementById('next-journal') as HTMLButtonElement;
+        if (prevBtn) prevBtn.disabled = currentPage === 0;
+        if (nextBtn) nextBtn.disabled = currentPage === totalPages - 1;
+    }
+
+    filters.forEach((filter) => {
+        filter.addEventListener('click', () => {
+            const value = filter.getAttribute('data-filter');
+            activeFilter = activeFilter === value ? null : value;
+            currentPage = 0;
+
+            filters.forEach((f) => f.classList.toggle('text-warmhover', f.getAttribute('data-filter') === activeFilter));
+            renderPage();
+        });
+    });
+
+    document.getElementById('prev-journal')?.addEventListener('click', () => {
+        currentPage = Math.max(0, currentPage - 1);
+        renderPage();
+    });
+
+    document.getElementById('next-journal')?.addEventListener('click', () => {
+        currentPage += 1;
+        renderPage();
+    });
+
+    renderPage();
+</script>
