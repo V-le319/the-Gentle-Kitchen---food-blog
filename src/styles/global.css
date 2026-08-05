@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
 @import "tailwindcss";
 
 
 @theme {
   /* fonts */
-  --font-serif: "Inrina Serif", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-serif: "Gara Serif", serif;
+  --font-sans: "EB Garamond", serif;
 
   /* colors */
   --color-bg: #e5d8bd;
@@ -16,7 +18,9 @@
   --color-lightBg: #F0E7DE;
 }
 
-
+.writing-content p + p {
+  margin-top: 1.5rem;
+}
 
 input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px transparent inset;

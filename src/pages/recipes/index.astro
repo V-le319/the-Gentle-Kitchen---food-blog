@@ -7,12 +7,12 @@ const recipes = await getCollection('recipes');
 
 <Layout>
     <Navbar/>
-    <main class="min-h-screen w-full flex flex-col gap-10 py-12 px-4 md:p-16">
+    <main class="min-h-screen w-full flex flex-col gap-10 py-12 px-4 md:p-24">
      
         <div class="top w-full flex justify-between items-stretch">
             <div class="left-content w-2/3 flex flex-col gap-6 md:gap-10">
                 <h1 class="text-4xl md:text-6xl md:leading-18 font-serif  tracking-[0.5rem] leading-12 text-heading">ALL RECIPES</h1>
-                <div class="dish-type flex items-center text-lightcharcoal md:text-sm text-xs font-sans tracking-[0.3rem] md:tracking-[0.5rem]">
+                <div class="dish-type flex items-center text-lightcharcoal md:text-base text-sm font-sans tracking-[0.3rem] md:tracking-[0.5rem]">
                     <span class="pr-6 cursor-pointer hover:text-warmhover" data-filter="SOUP">SOUP</span>
                     <span class="border-l cursor-pointer border-lightcharcoal pl-6 pr-6 hover:text-warmhover" data-filter="MAIN">MAIN</span>
                     <span class="border-l cursor-pointer border-lightcharcoal pl-6 hover:text-warmhover" data-filter="SIDE">SIDE</span>
@@ -26,8 +26,8 @@ const recipes = await getCollection('recipes');
     </div>
         </div>
 
-        <div class="recipe-cards w-full flex flex-col justtify-center gap-8">
-            <div class="tagline w-2/3 text-sm text-lightcharcoal leading-relaxed font-sans tracking-widest">
+        <div class="recipe-cards w-full mt-4 flex flex-col justtify-center gap-8">
+            <div class="tagline w-full text-base mb-4 md:text-lg text-lightcharcoal leading-relaxed font-sans font-light tracking-widest">
                 <span>Cooking without the performance.</span><br>
                 <span>Here are our recipes for comfort foods.</span>
             </div>

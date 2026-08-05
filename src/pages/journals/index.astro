@@ -6,13 +6,13 @@ const journals = await getCollection('journals');
 ---
 <Layout>
     <Navbar/>
-    <main class="min-h-screen w-full flex flex-col gap-10 py-12 px-4 md:p-16">
+    <main class="min-h-screen w-full flex flex-col gap-10 py-12 px-4 md:p-24">
         <div class="top w-full flex justify-between items-stretch">
             <div class="left-content w-2/3 flex flex-col gap-8 md:gap-14">
                 <h1 class="text-4xl md:text-6xl md:leading-18 font-serif  tracking-[0.5rem] leading-12 text-heading">
                      JOURNALS</h1>
                 <div class="h-0.5 w-30 bg-lightcharcoal/60"></div>
-                <div class="tagline  text-sm text-lightcharcoal leading-relaxed font-sans tracking-widest">
+                <div class="tagline  text-base md:text-lg text-lightcharcoal leading-relaxed font-sans tracking-widest">
                     <span>Notes from the kitchen,</span><br>
                     <span>and everywhere else life happens.</span>
                 </div>
@@ -25,7 +25,7 @@ const journals = await getCollection('journals');
     </div>
         </div>
 
-        <div class="card-grid w-full justify-center grid grid-cols-2 gap-4 md:gap-16 md:grid-cols-4">
+        <div class="card-grid w-full mt-2  justify-center grid grid-cols-2 gap-4 md:gap-16 md:grid-cols-4">
     {journals.map((journal, i) => {
         const isImageFirst = i % 2 === 1;
         return (

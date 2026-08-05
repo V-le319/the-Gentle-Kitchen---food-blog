@@ -20,22 +20,49 @@ const year = dateObj.getFullYear();
 ---
 <Layout>
   <Navbar/>
-  <main class="flex h-full w-screen gap-2">
-      <img src={journal.data.image}
-            class="h-screen sticky w-30 md:w-60 object-cover"/>
-      <div class="content flex flex-col gap-10 items-start w-full min-w-0 py-16  md:px-20">
+  <main class="flex h-screen w-screen overflow-hidden gap-2">
+      <div class="h-screen w-30 md:w-80 shrink-0 sticky top-0 overflow-hidden">
+        <img src={journal.data.image}
+             class="h-full w-full object-cover"/>
+    </div>
+      
+      <div class="content w-full overflow-y-auto h-screen flex flex-col gap-10 items-start py-16 px-4  md:px-26">
         
-        <div class="date flex items-start gap-2">
-          <span class="text-4xl font-sans text-heading">{day}</span>
-          <div class="flex flex-col font-sans tracking-widest leading-tight text-xs text-heading pt-1">
+        <div class="date flex text-lightcharcoal items-start gap-2">
+          <span class="text-4xl font-sans">{day}</span>
+          <div class="flex flex-col font-sans tracking-widest leading-tight text-xs pt-1">
             <span>{month}</span>
             <span>{year}</span>
           </div>
         </div>
 
-        <div class="h-0.5 w-30 bg-lightcharcoal/60"></div>
+        <div class="h-0.5 w-30 bg-lightcharcoal/60 shrink-0"></div>
 
-        <h1 class="text-4xl md:text-6xl w-full md:leading-18 font-serif tracking-wide leading-12 text-heading">{journal.data.title}</h1>
+        <div class="flex flex-col gap-10">
+          <h1 class="text-4xl md:text-6xl w-full md:leading-18 font-serif tracking-wide leading-12 text-heading">{journal.data.title}</h1>
+          <div class="writing-content w-full   pr-2 md:p-0 text-heading text-base md:text-lg font-sans tracking-normal">
+           <Content/>
+        </div>
+        </div>
+
+        <div class="h-0.5 w-30 bg-lightcharcoal/60 shrink-0"></div>
+
+        <div class="credit w-full tracking-wide pr-6 flex flex-row justify-between">
+          <div class="author flex flex-col gap-2">
+            <span class=" text-heading text-base md:text-lg font-sans">Written by</span>
+            <span class="font-serif text-lg text-heading font-semibold">The Gentle Kitchen</span>
+          </div>
+
+          <div class="pic flex flex-col gap-2">
+            <span class=" text-heading text-base md:text-lg font-sans">Picture</span>
+            <span class="font-serif text-lg text-heading font-semibold">Pinterest</span>
+          </div>
+        </div>
+        <a href="/journals">
+                <button class="hover:tracking-[0.4rem] transition-all duration-300 cursor-pointerborder shadown-md border border-lightcharcoal/80 rounded-xs px-6 py-2 s hover:bg-warmhover hover:text-white  text-heading font-sans tracking-[0.2rem]">All Journals</button>
+            </a>
       </div>
+
+      
   </main>
 </Layout>

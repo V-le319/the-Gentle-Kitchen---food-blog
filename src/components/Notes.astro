@@ -19,15 +19,15 @@ const journals = await getCollection('journals');
         <div class="relative w-full " id="journal-stack">
             {journals.map((journal, i) => (
                 <div
-                    class="journal-card md:w-70 absolute top-0 left-1/2 w-60 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
+                    class="journal-card md:w-70 md:h-100 h-90 absolute top-0 left-1/2 w-60 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
                     data-index={i}
                     data-slug={journal.id}
                 >
-                    <span class="text-xs text-lightcharcoal/60 font-sans tracking-widest">{journal.data.date}</span>
-                    <img src={journal.data.image} alt={journal.data.title} class="object-cover w-full h-60" />
-                    <div>
-                        <h3 class="font-serif text-xl tracking-wide text-heading/80 font-medium">{journal.data.title}</h3>
-                        <span class="text-lightcharcoal/60 text-xs font-sans italic">{journal.data.heading}</span>
+                    <span class="text-xs text-lightcharcoal/60 font-sans tracking-widest shrink-0">{journal.data.date}</span>
+                    <img src={journal.data.image} alt={journal.data.title} class="object-cover w-full h-60 shrink-0" />
+                    <div class="flex-1 min-h-0 flex flex-col justify-center gap-1">
+                      <h3 class="font-serif text-xl tracking-wide text-heading/80 font-medium line-clamp-1">{journal.data.title}</h3>
+                      <span class="text-lightcharcoal/60 text-xs font-sans italic line-clamp-1">{journal.data.heading}</span>
                     </div>
                 </div>
             ))}
