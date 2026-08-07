@@ -28,7 +28,7 @@ const { Content } = await render(recipe);
 
         <div class="main-section w-full flex flex-col gap-10 md:mb-16 justify-center md:items-end md:flex-row md:justify-between">
             <div class="h-full md:w-2/5 order-2 md:order-1 ">
-                <h3 class="uppercase font-semibold text-base text-warmhover mb-4 tracking-widest">Ingrdients</h3>
+                <h3 class="uppercase font-semibold text-base text-warmhover mb-4 tracking-widest">Ingredients</h3>
                 {recipe.data.ingredients?.map((item) => (
                     <ul class="list-disc list-inside ">
                     <li class="text-base md:text-lg font-sans leading-7 text-heading ">{item}</li>

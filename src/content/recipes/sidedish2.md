@@ -1,5 +1,5 @@
 ---
-title: "Sesame Miso Green Beans"
+title: "Miso Green Beans"
 description: "Crisp green beans stir-fried with a savory miso-sesame crumble."
 category: SIDE
 calories: 120

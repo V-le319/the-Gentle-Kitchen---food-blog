@@ -1,5 +1,5 @@
 ---
-title: "Honey Roasted Eggplant"
+title: "Roasted Eggplant"
 description: "Roasted eggplant halves finished with a honey glaze, sesame, and pomegranate."
 category: SIDE
 calories: 150
