@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 
 const journals = await getCollection('journals');
 ---
-<div class="h-screen flex justify-center w-full border-t-0 border border-lightcharcoal">
+<div class="min-h-screen flex justify-center w-full border-t-0 border border-lightcharcoal">
 
     <div class="side-bar sticky top-0 h-screen font-serif text-lightcharcoal border-r border-t-0 w-1/9 md:w-1/12  border-lightcharcoal flex items-center justify-center">
         <span class="-rotate-90 text-sm md:text-lg tracking-[0.8rem] font-medium whitespace-nowrap">
@@ -11,19 +11,21 @@ const journals = await getCollection('journals');
         </span>
     </div>
 
-    <div class="flex-1 w-full flex flex-col gap-10 justify-center items-center py-16">
+    <div class="flex-1  w-full flex flex-col gap-10 justify-center items-center py-16 md:py-24">
             
         <h2 class="font-serif text-3xl md:text-4xl tracking-wide text-heading mb-4">Notes From The Kitchen</h2>
         
-         <div class="flex justify-center w-full ">
+         <div class="flex justify-center h-full w-full ">
         <div class="relative w-full " id="journal-stack">
             {journals.map((journal, i) => (
                 <div
                     class="journal-card md:w-70 md:h-100 h-90 absolute top-0 left-1/2 w-60 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
-                    data-index={i}
+                    data-index={i} 
                     data-slug={journal.id}
                 >
-                    <span class="text-xs text-lightcharcoal/60 font-sans tracking-widest shrink-0">{journal.data.date}</span>
+                    <span class="text-xs text-lightcharcoal/60 font-sans tracking-widest shrink-0">
+                    {new Date(journal.data.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
+                    </span>
                     <img src={journal.data.image} alt={journal.data.title} class="object-cover w-full h-40 md:h-55 shrink-0" />
                     <div class="flex-1 min-h-0 flex flex-col justify-center gap-1">
                       <h3 class="font-serif text-xl tracking-wide text-heading/80 font-medium ">{journal.data.title}</h3>
