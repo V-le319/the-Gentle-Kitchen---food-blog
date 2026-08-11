@@ -1,0 +1,30 @@
+paths:
+  static: public
+  uploads: public/uploads
+timezone: Asia/Bangkok
+markdown:
+  engine: commonmark
+  options:
+    gfm: true
+collections_config:
+  source:
+    path: ''
+    icon: package_2
+  pages:
+    path: src/pages
+    icon: wysiwyg
+  content:
+    path: src/content
+    icon: wysiwyg
+  journals:
+    path: src/content/journals
+    icon: hourglass
+  pages_journals:
+    path: src/pages/journals
+    icon: page_control
+  pages_recipes:
+    path: src/pages/recipes
+    icon: page_header
+  recipes:
+    path: src/content/recipes
+    icon: local_dining
