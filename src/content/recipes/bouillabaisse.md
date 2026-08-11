@@ -1,8 +1,7 @@
 ---
-title: Bouillabaisse - testing edit
-description: |-
+title: 'Bouillabaisse '
+description: |
   A rustic French seafood stew, simmered with fennel, tomato, and saffron.
-  Testing cloudcanon
 category: MAIN
 image: /img/Lobster-Bouillabaisse-WEB.jpg
 calories: 420
