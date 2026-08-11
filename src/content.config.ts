@@ -22,7 +22,7 @@ const journals = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/journals' }),
   schema: z.object({
     title: z.string(),
-    date: z.string(),
+    date: z.coerce.string(),
     image: z.string(),
     heading: z.string(),
   })
