@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content';
 
 const journals = await getCollection('journals');
 ---
-<div class="min-h-screen flex justify-center w-full border-t-0 border border-lightcharcoal">
+<div class=" flex justify-center w-full border-t-0 border border-lightcharcoal">
 
-    <div class="side-bar sticky top-0 h-screen font-serif text-lightcharcoal border-r border-t-0 w-1/9 md:w-1/12  border-lightcharcoal flex items-center justify-center">
+    <div class="side-bar sticky top-0  font-serif text-lightcharcoal border-r border-t-0 w-1/9 md:w-1/12  border-lightcharcoal flex items-center justify-center">
         <span class="-rotate-90 text-sm md:text-lg tracking-[0.8rem] font-medium whitespace-nowrap">
             JOURNALS
         </span>
@@ -15,11 +15,11 @@ const journals = await getCollection('journals');
             
         <h2 class="font-serif text-3xl md:text-4xl tracking-wide text-heading mb-4">Notes From The Kitchen</h2>
         
-         <div class="flex justify-center h-full w-full ">
+         <div class="flex justify-center w-full ">
         <div class="relative w-full " id="journal-stack">
             {journals.map((journal, i) => (
                 <div
-                    class="journal-card md:w-70 md:h-100 h-90 absolute top-0 left-1/2 w-60 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
+                    class="journal-card w-60 h-88 md:w-72 md:h-104 absolute top-0 left-1/2 p-6 flex flex-col gap-2 overflow-hidden bg-bg drop-shadow-md border border-lightcharcoal rounded-xs cursor-pointer transition-all duration-400 ease-in-out"
                     data-index={i} 
                     data-slug={journal.id}
                 >
@@ -122,4 +122,7 @@ function render() {
   window.addEventListener('resize', render);
 
   render();
+  document.querySelectorAll('.journal-card img').forEach(img => {
+    img.addEventListener('load', render, { once: true });
+  });
 </script>
