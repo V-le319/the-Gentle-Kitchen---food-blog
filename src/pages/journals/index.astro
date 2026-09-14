@@ -25,7 +25,7 @@ const journals = await getCollection('journals');
     </div>
         </div>
 
-        <div class="card-grid w-full mt-2  justify-center grid grid-cols-2 gap-4 md:gap-16 md:grid-cols-4">
+        <div class="card-grid w-full mt-2 justify-center grid grid-cols-2 gap-4 md:gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 xl:gap-16 xl:grid-cols-4">
     {journals.map((journal, i) => {
         const isImageFirst = i % 2 === 1;
         return (
@@ -43,7 +43,7 @@ const journals = await getCollection('journals');
                         </div>
                     </div>
                 ) : (
-                    <div class="md:h-100 h-75 w-full flex flex-col gap-4 justify-between hover:scale-110 duration-300 border border-lightcharcoal p-6">
+                    <div class="md:min-h-100 min-h-75 w-full flex flex-col gap-4 justify-between hover:scale-110 duration-300 border border-lightcharcoal p-4 xl:p-6 overflow-hidden">
                         <div class="w-full flex gap-4 justify-between items-start">
                             <div class="w-2/3 flex flex-col gap-2">
                                 <span class="text-xs text-heading/80">{journal.data.date}</span>

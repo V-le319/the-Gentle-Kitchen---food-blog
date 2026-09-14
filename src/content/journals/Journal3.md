@@ -1,6 +1,6 @@
 ---
 title: A Quiet Week, and Why That's Enough
-date: 20 September
+date: 20 September 2026
 image: /img/download (10).jfif
 heading: Nothing happened, and I'm grateful for that.
 ---

@@ -21,12 +21,12 @@ const year = dateObj.getFullYear();
 <Layout>
   <Navbar/>
   <main class="flex h-screen w-screen overflow-hidden gap-2">
-      <div class="h-screen w-30 md:w-80 shrink-0 sticky top-0 overflow-hidden">
+      <div class="h-screen w-28 lg:w-80 shrink-0 sticky top-0 overflow-hidden">
         <img src={journal.data.image}
              class="h-full w-full object-cover"/>
     </div>
       
-      <div class="content w-full overflow-y-auto h-screen flex flex-col gap-10 items-start py-16 px-4  md:px-26">
+      <div class="content w-full overflow-y-auto h-screen flex flex-col gap-10 items-start py-16 px-4 md:px-10  lg:px-26">
         
         <div class="date flex text-lightcharcoal items-start gap-2">
           <span class="text-4xl font-sans">{day}</span>

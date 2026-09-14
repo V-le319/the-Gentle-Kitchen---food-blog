@@ -32,18 +32,19 @@ const recipes = await getCollection('recipes');
                 <span>Here are our recipes for comfort foods.</span>
             </div>
 
-            <div class="card-grid w-full justify-center grid grid-cols-2 gap-6 md:gap-16 md:grid-cols-4">
+            <div class="card-grid w-full justify-center grid grid-cols-2 gap-6 xl:gap-16 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
                 {recipes.map((recipe) => (
                     <a href={`/recipes/${recipe.id}`} data-category={recipe.data.category}>
                     <div class= "md:h-90 h-70 flex flex-col gap-4 hover:scale-110 duration-300 border border-lightcharcoal md:p-6 p-3">
                         <img src={recipe.data.image}
                                 class="h-3/4 w-full object-cover drop-shadow-sm"/>
-                       <div class="flex justify-between mt-2 md:mt-4"> 
-                        <h3 class="text-heading flex items-center md:text-xl  font-serif italic">{recipe.data.title}</h3>
-                        <div class="tag bg-lightcharcoal/20 px-2 py-1 flex justify-center items-center rounded-full w-fit">
-                            <span class="font-sans text-heading/80 font-medium tracking-[0.2rem] text-xs">{recipe.data.category}</span>
-                        </div>
-                       </div>
+
+                       <div class="flex justify-between gap-2 mt-2 md:mt-4"> 
+    <h3 class="text-heading flex items-center md:text-xl font-serif italic flex-1 min-w-0">{recipe.data.title}</h3>
+    <div class="tag bg-lightcharcoal/20 px-2 py-1 flex justify-center items-center rounded-full w-fit shrink-0 self-start">
+        <span class="font-sans text-heading/80 font-medium md:tracking-[0.2rem] text-xs">{recipe.data.category}</span>
+    </div>
+</div>
                     </div>
                     </a>
   ))}
