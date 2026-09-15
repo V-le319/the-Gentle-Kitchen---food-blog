@@ -1,43 +1,32 @@
-# Astro Starter Kit: Minimal
+# 🍚 Gentle Kitchen
 
-```sh
-npm create astro@latest -- --template minimal
-```
+A minimalist food blog for home-comfort cooking, with a quiet Japanese-leaning, retro aesthetic.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+**Live site:** [the-gentle-kitchen-foodblog.vercel.app](https://the-gentle-kitchen-foodblog.vercel.app)
 
-## 🚀 Project Structure
+## About
 
-Inside of your Astro project, you'll see the following folders and files:
+Gentle Kitchen is a content-first blog focused on simple, comforting recipes — no clutter, no vanity metrics (no view counts, no likes), just recipes and a place for readers to connect through comments.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Tech Stack
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- **[Astro](https://astro.build/)** — chosen over Next.js for better speed performance and SEO on content-heavy static pages
+- **TypeScript**
+- **[Supabase](https://supabase.com/)** — subscriber storage & backend
+- **[CloudCannon](https://cloudcannon.com/)** — visual CMS for content editing, connected directly to this repo
+- **Vercel** — hosting & deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Features
 
-Any static assets, like images, can be placed in the `public/` directory.
+- 📖 Recipe pages on individual routes
+- 💬 Comment section for reader interaction
+- 📬 Email subscribe form (Supabase-backed, with success/error states)
+- 🎨 Client-editable content via CloudCannon (no CMS account needed for the client — shared via password-protected link)
+- 🚫 No view/like counters — kept intentionally minimal
 
-## 🧞 Commands
+## CMS Workflow
 
-All commands are run from the root of the project, from a terminal:
+Content edits made in CloudCannon push commits directly to this repo, which triggers a redeploy on Vercel. CloudCannon is editor-only — it doesn't host the site.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
